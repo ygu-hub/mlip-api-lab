@@ -1,10 +1,14 @@
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
+from flask import json
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
 import time
 
-endpoint = "ENTER ENDPOINT HERE"
-key = "ENTER KEY HERE"
+with open("secret.json", "r") as file:
+    config = json.load(file)
+    
+endpoint = config["endpoint"]
+key = config["key"]
 
 credentials = CognitiveServicesCredentials(key)
 
@@ -14,6 +18,8 @@ client = ComputerVisionClient(
 )
 
 def read_image(uri):
+    print(endpoint)
+    print(key)
     numberOfCharsInOperationId = 36
     maxRetries = 10
 
